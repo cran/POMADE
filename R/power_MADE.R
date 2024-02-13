@@ -54,7 +54,7 @@
 #'    var_df = c("Model", "Satt", "RVE"),
 #'    alpha = .05,
 #'    seed = 10052510,
-#'    iterations =5
+#'    iterations = 5
 #'  )
 #'
 #' power
@@ -465,8 +465,11 @@ power_MADE_single <-
 
     if ("CE" %in% model & "RVE" %in% var_df) {
 
-      # Equation 17 in Vembye, Pustejovsky, & Pigott (2022)
-      tau2_e <- tau^2 + omega^2 * (1 - sum(1 / (kj * sigma2j^2))) / (1 - sum(1 / sigma2j^2))
+      # Estimating a presented in corrigendum
+      a <- sum(1/sigma2j)
+
+      # Equation 17 in Vembye, Pustejovsky, & Pigott (2023, corrigendum)
+      tau2_e <- tau^2 + omega^2 * (1 - sum(1 / (kj * sigma2j^2)) / a^2) / (1 - sum(1 / sigma2j^2) / a^2)
 
       # _dd = dotdot
       wj_dd <- 1 / (sigma2j + tau2_e)
